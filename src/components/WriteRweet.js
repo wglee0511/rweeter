@@ -5,17 +5,18 @@ import RweetInput from "../elements/RweetInput";
 import CropOriginalIcon from "@material-ui/icons/CropOriginal";
 import theme from "../shared/theme";
 import Button from "../elements/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { actionGetPreview } from "../redux/modules/image";
+import { actionUploadPost } from "../redux/modules/post";
 
 const WriteRweet = (props) => {
+  const user_info = useSelector((state) => state.user.user);
   const file = useRef();
+  const [contents, setContents] = useState("");
   const [preview, setPreview] = useState("");
-
+  const dispatch = useDispatch();
   const handleButtonClick = () => {
     document.all.upload.click();
-  };
-
-  const handleOnChange = (event) => {
-    console.log(event.target.value);
   };
 
   const handleSelect = () => {
@@ -24,17 +25,36 @@ const WriteRweet = (props) => {
     reader.readAsDataURL(fileForReader);
     reader.onloadend = (event) => {
       setPreview(event.target.result);
+      dispatch(actionGetPreview(event.target.result));
     };
+  };
+  const handleOnChange = (event) => {
+    setContents(event.target.value);
+  };
+
+  const handleUpload = (event) => {
+    event.preventDefault();
+    if (contents === "") {
+      return;
+    }
+    dispatch(actionUploadPost(contents));
+    setContents("");
+    setPreview("");
   };
   // 햔재 유저의 사진을 넣을 것
   return (
     <InputRweet>
       <UserImageDiv>
-        <Image />
+        <Image src={user_info.user_profile} />
       </UserImageDiv>
 
-      <Form>
-        <RweetInput placeholder="무슨일이 일어나고 있나요?" width="250px" />
+      <Form onSubmit={handleUpload}>
+        <RweetInput
+          placeholder="무슨일이 일어나고 있나요?"
+          width="250px"
+          _onChange={handleOnChange}
+          _value={contents}
+        />
         {preview && <Image shape="rectagle" src={preview} min_width="200px" />}
         <FileInput
           name="upload"
@@ -47,7 +67,13 @@ const WriteRweet = (props) => {
           <PictureButton onClick={handleButtonClick}>
             <CropOriginalIcon fontSize="large" />
           </PictureButton>
-          <Button text="르윗하기" height="40px" width="100px" size="15px" />
+          <Button
+            text="르윗하기"
+            height="40px"
+            width="100px"
+            size="15px"
+            _disabled={contents === "" ? "true" : "false"}
+          />
         </ButtonDiv>
       </Form>
     </InputRweet>
@@ -63,7 +89,7 @@ const UserImageDiv = styled.div`
   width: 63px;
   padding: 10px 0 0 10px;
 `;
-const Form = styled.div`
+const Form = styled.form`
   margin: 10px;
   width: 100%;
   display: flex;

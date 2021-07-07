@@ -5,9 +5,15 @@ import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import HomeIcon from "@material-ui/icons/Home";
 import theme from "../shared/theme";
+import { useDispatch } from "react-redux";
+import { actionLogoutToFirabase } from "../redux/modules/user";
 
 const Navigation = (props) => {
   let urlname = props.location.pathname;
+  const dispatch = useDispatch();
+  const handleLougout = () => {
+    dispatch(actionLogoutToFirabase());
+  };
 
   return (
     <>
@@ -16,7 +22,7 @@ const Navigation = (props) => {
         <EachLink to="/" title="홈">
           <HomeIcon fontSize="large" />
         </EachLink>
-        <EachLink to="/" title="로그아웃">
+        <EachLink to="/" title="로그아웃" onClick={handleLougout}>
           <ExitToAppIcon fontSize="large" />
         </EachLink>
         <EachLink to="/" title="위로가기">

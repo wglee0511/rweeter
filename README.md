@@ -32,59 +32,55 @@
 
 - User
 
-  - state : {
-    - user: {
+  - state :
+    - user:
       - user_id
       - user_uid
       - user_profile
       - user_name
-      - }
     - is_Loading
     - is_Login
-  - }
 
 ---
 
 - Rweet
 
-  - state: {
+  - state:
+
     - list : [...each_post]
     - paging
     - is_loading
-  - }
 
-  - each_post : {
+  - each_post :
     - post_id : doc.id(in firebase)
-    - user_info : {
+    - user_info :
       - user_uid
       - user_name
       - user_profile
-    - }
     - image_url
     - contents
     - comments_cnt
+    - like_cnt
     - insert_dt
-  - }
 
 ---
 
 - image
-  - state : {
+  - state :
     - image_url
     - preview
     - up_loading
-  - }
 
 ---
 
 - comment
 
-  - state : {
+  - state :
+
     - list : [...each_comment]
     - is_loading
-  - }
 
-  - each_comment : {
+  - each_comment :
     - comment_id : doc.id(in firebase)
     - post_id
     - user_uid
@@ -92,4 +88,3 @@
     - user_profile
     - insert_dt
     - contents
-  - }

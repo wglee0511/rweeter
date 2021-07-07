@@ -7,11 +7,17 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Main from "./pages/Main";
 import theme from "./shared/theme";
-import { connect, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { actionLoginChecker } from "./redux/modules/user";
 
 function App(props) {
   const is_login = useSelector((state) => state.user.is_login);
-  useEffect(() => {}, []);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (!is_login) {
+      dispatch(actionLoginChecker());
+    }
+  }, []);
 
   return (
     <Wrapper className="App">

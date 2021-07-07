@@ -3,7 +3,8 @@ import styled from "styled-components";
 import theme from "../shared/theme";
 
 const RweetInput = (props) => {
-  const { children, width, height, size, placeholder, _onChange } = props;
+  const { children, width, height, size, placeholder, _onChange, _value } =
+    props;
   const styles = {
     width,
     height,
@@ -11,7 +12,12 @@ const RweetInput = (props) => {
   };
 
   return (
-    <Input {...styles} placeholder={placeholder} onChange={_onChange}>
+    <Input
+      {...styles}
+      placeholder={placeholder}
+      onChange={_onChange}
+      value={_value}
+    >
       {children}
     </Input>
   );

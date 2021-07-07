@@ -20,6 +20,10 @@ const user = createSlice({
       state.user = action.payload;
       state.is_login = true;
     },
+    actionDelUser: (state, acion) => {
+      state.user = null;
+      state.is_login = false;
+    },
   },
 });
 
@@ -49,6 +53,28 @@ export const actionSignupforAuth =
     }
   };
 
+export const actionLoginChecker =
+  () =>
+  async (dispatch, getState, { history }) => {
+    try {
+      await firebaseAuth.onAuthStateChanged((user) => {
+        if (user) {
+          const userForRedux = {
+            user_id: user.email,
+            user_uid: user.uid,
+            user_profile: user.photoURL,
+            user_name: user.displayName,
+          };
+          dispatch(actionSetUser(userForRedux));
+        } else {
+          dispatch(actionDelUser);
+        }
+      });
+    } catch (error) {
+      window.alert(error.message);
+    }
+  };
+
 export const actionLoginForAuth =
   (user_info) =>
   async (dispatch, getState, { history }) => {
@@ -60,7 +86,7 @@ export const actionLoginForAuth =
     const userForRedux = {
       user_id: user.user.email,
       user_uid: user.user.uid,
-      user_profile: "",
+      user_profile: user.user.photoURL,
       user_name: user.user.displayName,
     };
     dispatch(actionSetUser(userForRedux));
@@ -71,6 +97,18 @@ export const actionLoginForAuth =
     }
   };
 
-export const { actionSetUser } = user.actions;
+export const actionLogoutToFirabase =
+  () =>
+  async (dispatch, getState, { history }) => {
+    try {
+      await firebaseAuth.signOut();
+      dispatch(actionDelUser());
+      history.replace("/");
+    } catch (error) {
+      window.alert(error.message);
+    }
+  };
+
+export const { actionSetUser, actionDelUser } = user.actions;
 
 export default user;

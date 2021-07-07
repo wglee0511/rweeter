@@ -3,10 +3,11 @@ import styled from "styled-components";
 import theme from "../shared/theme";
 
 const Button = (props) => {
-  const { _onClick, btnstyle, width, height, text, size, type } = props;
+  const { _onClick, btnstyle, width, height, text, size, type, _disabled } =
+    props;
   const styles = { btnstyle, width, height, size };
   return (
-    <ButtonStyle type={type} onClick={_onClick} {...styles}>
+    <ButtonStyle type={type} onClick={_onClick} block={_disabled} {...styles}>
       {text}
     </ButtonStyle>
   );
@@ -20,6 +21,7 @@ Button.defaultProps = {
   text: "르위터",
   size: "25px",
   type: "",
+  disabled: false,
 };
 
 const ButtonStyle = styled.button`
@@ -52,6 +54,7 @@ const ButtonStyle = styled.button`
          border: 2px solid ${theme.bgColor};
      }
      `}
+     ${(props) => props.block === "true" && `opacity: 0.5;`}
 `;
 
 export default Button;
