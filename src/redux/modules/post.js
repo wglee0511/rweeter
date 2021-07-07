@@ -35,6 +35,9 @@ const post = createSlice({
     actionAddPost: (state, action) => {
       state.list.unshift(action.payload);
     },
+    actionGetPost: (state, action) => {
+      state.list = action.payload;
+    },
   },
 });
 
@@ -115,8 +118,38 @@ export const actionUploadPost =
 
 export const actionGetPostFirebase =
   () =>
-  async (dispatch, getState, { history }) => {};
+  async (dispatch, getState, { history }) => {
+    try {
+      let post_list = [];
+      const get_post_list = await firebaseStore
+        .collection("post")
+        .orderBy("insert_dt", "desc")
+        .get();
+      console.log(get_post_list);
+      get_post_list.forEach((doc) => {
+        const doc_info = doc.data();
+        const each_post = {
+          post_id: doc.id,
+          user_info: {
+            user_id: doc_info.user_id,
+            user_uid: doc_info.user_uid,
+            user_profile: doc_info.user_profile,
+            user_name: doc_info.user_name,
+          },
+          contents: doc_info.contents,
+          image_url: doc_info.image_url,
+          comments_cnt: doc_info.comments_cnt,
+          like_cnt: doc_info.like_cnt,
+          insert_dt: doc_info.insert_dt,
+        };
+        post_list.push(each_post);
+      });
+      dispatch(actionGetPost(post_list));
+    } catch (error) {
+      window.alert(error.message);
+    }
+  };
 
-export const { actionAddPost } = post.actions;
+export const { actionAddPost, actionGetPost } = post.actions;
 
 export default post;

@@ -25,6 +25,7 @@ const Wrapper = styled.div`
 
 const NavDiv = styled.div`
   background-color: ${theme.bgColor};
+  z-index: 10;
   position: sticky;
   height: 60px;
   top: -0.1px;

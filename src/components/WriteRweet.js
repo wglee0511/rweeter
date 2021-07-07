@@ -24,8 +24,9 @@ const WriteRweet = (props) => {
     const reader = new FileReader();
     reader.readAsDataURL(fileForReader);
     reader.onloadend = (event) => {
-      setPreview(event.target.result);
-      dispatch(actionGetPreview(event.target.result));
+      let result = event.target.result;
+      setPreview(result);
+      dispatch(actionGetPreview(result));
     };
   };
   const handleOnChange = (event) => {

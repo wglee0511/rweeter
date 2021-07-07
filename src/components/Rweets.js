@@ -4,29 +4,44 @@ import Image from "../elements/Image";
 import theme from "../shared/theme";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import { useSelector } from "react-redux";
 const Rweets = () => {
-  // 아래 map 각각의 정보를 넣어줘야함
+  const post_list = useSelector((state) => state.post.list);
+  const checker = post_list.length !== 0 ? true : false;
+
   return (
-    <InputRweet>
-      <UserImageDiv>
-        <Image />
-      </UserImageDiv>
-      <MainDiv>
-        <UserInfoDiv>
-          <Font>ddd</Font>
-          <CheckCircleIcon style={{ margin: "0 3px 0 3px" }} />
-          <CreatAt>2222-22-22</CreatAt>
-        </UserInfoDiv>
-        <ContentsDiv>
-          <Font>sdfsda</Font>
-          <Image shape="rectangle" min_width="230px" />
-          <LikeButton is_like={"false"}>
-            <FavoriteIcon />
-            100 개
-          </LikeButton>
-        </ContentsDiv>
-      </MainDiv>
-    </InputRweet>
+    <>
+      {checker &&
+        post_list.map((each) => {
+          return (
+            <InputRweet key={each.post_id}>
+              <UserImageDiv>
+                <Image src={each.user_info.user_profile} />
+              </UserImageDiv>
+              <MainDiv>
+                <UserInfoDiv>
+                  <Font>{each.user_info.user_name}</Font>
+                  <CheckCircleIcon style={{ margin: "0 3px 0 3px" }} />
+                  <CreatAt>{each.insert_dt}</CreatAt>
+                </UserInfoDiv>
+                <ContentsDiv>
+                  <Font>{each.contents}</Font>
+                  <Image
+                    shape="rectangle"
+                    min_width="230px"
+                    src={each.image_url}
+                  />
+                  <LikeButton is_like={"false"}>
+                    <FavoriteIcon />
+                    {each.like_cnt} 개
+                  </LikeButton>
+                </ContentsDiv>
+              </MainDiv>
+            </InputRweet>
+          );
+        })}
+      {!checker && <PleaseDiv>르위터에 오신 것을 환영합니다.</PleaseDiv>}
+    </>
   );
 };
 
@@ -85,6 +100,16 @@ const LikeButton = styled.div`
   :hover {
     cursor: pointer;
   }
+`;
+
+const PleaseDiv = styled.div`
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  height: 600px;
+  justify-content: center;
+  align-items: center;
+  color: ${theme.fontColor};
 `;
 
 export default Rweets;

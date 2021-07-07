@@ -9,6 +9,7 @@ import Main from "./pages/Main";
 import theme from "./shared/theme";
 import { useDispatch, useSelector } from "react-redux";
 import { actionLoginChecker } from "./redux/modules/user";
+import { actionGetPostFirebase } from "./redux/modules/post";
 
 function App(props) {
   const is_login = useSelector((state) => state.user.is_login);
@@ -16,6 +17,7 @@ function App(props) {
   useEffect(() => {
     if (!is_login) {
       dispatch(actionLoginChecker());
+      dispatch(actionGetPostFirebase());
     }
   }, []);
 

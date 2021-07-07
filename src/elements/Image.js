@@ -13,16 +13,17 @@ const Image = (props) => {
     min_width,
   };
 
+  if (shape === "circle") {
+    return <ImageCircle {...styles} />;
+  }
   return (
-    <div>
-      {shape === "circle" ? (
-        <ImageCircle {...styles} />
-      ) : (
+    <>
+      {src !== null && (
         <AspectOutter {...styles}>
           <AspectInner {...styles} />
         </AspectOutter>
       )}
-    </div>
+    </>
   );
 };
 
