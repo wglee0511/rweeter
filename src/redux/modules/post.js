@@ -6,6 +6,7 @@ const initialState = {
   list: [],
   paging: { start: null, next: null, size: 3 },
   is_loading: false,
+  detail_rweet: {},
 };
 
 /*  - state: {
@@ -44,6 +45,13 @@ const post = createSlice({
     },
     actionLoading: (state, action) => {
       state.is_loading = true;
+    },
+    actionGetDetail: (state, action) => {
+      state.detail_rweet = action.payload;
+      state.is_loading = false;
+    },
+    aciontDelDetail: (state, action) => {
+      state.detail_rweet = {};
     },
   },
 });
@@ -170,6 +178,44 @@ export const actionGetPostFirebase =
     }
   };
 
-export const { actionAddPost, actionGetPost, actionLoading } = post.actions;
+export const actionGetOnePostFirebase =
+  (post_id) =>
+  async (dispatch, getState, { history }) => {
+    dispatch(actionLoading(true));
+    dispatch(aciontDelDetail());
+    try {
+      const get_post = await firebaseStore
+        .collection("post")
+        .doc(post_id)
+        .get();
+      const post_info = get_post.data();
+      let post = {
+        post_id: post_id,
+        user_info: {
+          user_id: post_info.user_id,
+          user_uid: post_info.user_uid,
+          user_profile: post_info.user_profile,
+          user_name: post_info.user_name,
+        },
+        contents: post_info.contents,
+        image_url: post_info.image_url,
+        comments_cnt: post_info.comments_cnt,
+        like_cnt: post_info.like_cnt,
+        insert_dt: post_info.insert_dt,
+      };
+      dispatch(actionGetDetail(post));
+      history.push(`/detail/${post_id}`);
+    } catch (error) {
+      window.alert(error.message);
+    }
+  };
+
+export const {
+  actionAddPost,
+  actionGetPost,
+  actionLoading,
+  actionGetDetail,
+  aciontDelDetail,
+} = post.actions;
 
 export default post;

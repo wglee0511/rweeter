@@ -88,3 +88,9 @@
     - user_profile
     - insert_dt
     - contents
+
+---
+
+- like
+  - state :
+    -

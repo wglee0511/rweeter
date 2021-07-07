@@ -1,40 +1,49 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Image from "../elements/Image";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import theme from "../shared/theme";
+import { useSelector } from "react-redux";
 
 const Rweet = () => {
+  const is_loading = useSelector((state) => state.post.is_loading);
+  const post = useSelector((state) => state.post.detail_rweet);
+
+  console.log(post);
   return (
     <>
-      <UserDiv>
-        <UserImageDiv>
-          <Image />
-        </UserImageDiv>
-        <UserInfoDiv>
-          <NameWrapper>
-            <Font>dsfdsf</Font>
-            <CheckCircleIcon
-              fontSize="small"
-              style={{ margin: "0 3px 0 3px" }}
-            />
-          </NameWrapper>
-          <Email>asda@sadsad.asda</Email>
-        </UserInfoDiv>
-      </UserDiv>
-      <ContentsDiv>
-        <FontWord>내에용</FontWord>
-        <Image shape="rectangle" min_width="230px" />
-      </ContentsDiv>
+      {!is_loading && (
+        <>
+          <UserDiv>
+            <UserImageDiv>
+              <Image src={post.user_info.user_profile} />
+            </UserImageDiv>
+            <UserInfoDiv>
+              <NameWrapper>
+                <Font>{post.user_info.user_name}</Font>
+                <CheckCircleIcon
+                  fontSize="small"
+                  style={{ margin: "0 3px 0 3px" }}
+                />
+              </NameWrapper>
+              <Email>{post.user_info.user_id}</Email>
+            </UserInfoDiv>
+          </UserDiv>
+          <ContentsDiv>
+            <FontWord>{post.contents}</FontWord>
+            <Image shape="rectangle" min_width="300px" src={post.image_url} />
+          </ContentsDiv>
 
-      <Enddiv>
-        <CreatAt>2222-22-22</CreatAt>
-        <LikeButton is_like={"false"}>
-          <FavoriteIcon style={{ margin: "0 5px" }} />
-          100
-        </LikeButton>
-      </Enddiv>
+          <Enddiv>
+            <CreatAt>{post.insert_dt}</CreatAt>
+            <LikeButton is_like={"false"}>
+              <FavoriteIcon style={{ margin: "0 5px" }} />
+              {post.comments_cnt}
+            </LikeButton>
+          </Enddiv>
+        </>
+      )}
     </>
   );
 };

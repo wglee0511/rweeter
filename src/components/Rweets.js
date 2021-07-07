@@ -6,14 +6,15 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import { useDispatch, useSelector } from "react-redux";
 import InfinityScroll from "../shared/InfinityScroll";
-import { actionGetPostFirebase } from "../redux/modules/post";
-import { useHistory } from "react-router-dom";
+import {
+  actionGetOnePostFirebase,
+  actionGetPostFirebase,
+} from "../redux/modules/post";
 
 const Rweets = (props) => {
   const post_list = useSelector((state) => state.post.list);
   const is_loading = useSelector((state) => state.post.is_loading);
   const get_next = useSelector((state) => state.post.paging.next);
-  let history = useHistory();
   const dispatch = useDispatch();
   let next_checker = get_next ? true : false;
   let list_length_checker = post_list.length !== 0 ? true : false;
@@ -21,7 +22,6 @@ const Rweets = (props) => {
   const nextCall = () => {
     dispatch(actionGetPostFirebase(get_next));
   };
-  console.log(history);
   return (
     <>
       <InfinityScroll
@@ -44,7 +44,9 @@ const Rweets = (props) => {
                   </UserInfoDiv>
 
                   <ContentsDiv
-                    onClick={() => history.push(`/detail/${each.post_id}`)}
+                    onClick={() => {
+                      dispatch(actionGetOnePostFirebase(each.post_id));
+                    }}
                   >
                     <Font>{each.contents}</Font>
                     <Image

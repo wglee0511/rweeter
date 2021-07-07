@@ -28,7 +28,7 @@ function App(props) {
         <MainDiv>
           <Switch>
             <Route exact path="/" component={Main} />
-            <Route exact path="/detail/:id" component={RweetDetail} />
+            <Route path="/detail/:id" component={RweetDetail} />
             <Redirect from="*" to="/" />
           </Switch>
         </MainDiv>
