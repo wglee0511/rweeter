@@ -10,9 +10,7 @@ import { Provider } from "react-redux";
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
+      <App />
     </ConnectedRouter>
   </Provider>,
   document.getElementById("root")

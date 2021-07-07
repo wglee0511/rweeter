@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 import "./App.css";
@@ -7,9 +7,11 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Main from "./pages/Main";
 import theme from "./shared/theme";
+import { connect, useSelector } from "react-redux";
 
 function App(props) {
-  const is_login = false;
+  const is_login = useSelector((state) => state.user.is_login);
+  useEffect(() => {}, []);
 
   return (
     <Wrapper className="App">

@@ -18,6 +18,7 @@ LoginForm.defaultProps = {
 const Banner = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   height: ${(props) => props.height};
   padding: 35px 30px 35px 30px;
 `;

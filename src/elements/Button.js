@@ -3,10 +3,10 @@ import styled from "styled-components";
 import theme from "../shared/theme";
 
 const Button = (props) => {
-  const { _onClick, btnstyle, width, height, text, size } = props;
+  const { _onClick, btnstyle, width, height, text, size, type } = props;
   const styles = { btnstyle, width, height, size };
   return (
-    <ButtonStyle onClick={_onClick} {...styles}>
+    <ButtonStyle type={type} onClick={_onClick} {...styles}>
       {text}
     </ButtonStyle>
   );
@@ -19,6 +19,7 @@ Button.defaultProps = {
   height: "50px",
   text: "르위터",
   size: "25px",
+  type: "",
 };
 
 const ButtonStyle = styled.button`

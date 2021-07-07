@@ -2,19 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import theme from "../shared/theme";
 
-const LoginInput = (props) => {
-  const { children, width, height, size, placeholder, _onChange } = props;
-  const styles = {
-    width,
-    height,
-    size,
-  };
-
-  return (
-    <Input {...styles} placeholder={placeholder} onChange={_onChange}>
-      {children}
-    </Input>
-  );
+const LoginInput = ({ children, ...rest }) => {
+  return <Input {...rest}>{children}</Input>;
 };
 
 LoginInput.defaultProps = {
@@ -24,6 +13,7 @@ LoginInput.defaultProps = {
   size: "18px",
   placeholder: "르위터",
   _onChange: () => {},
+  type: "text",
 };
 
 const Input = styled.input`
