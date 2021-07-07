@@ -18,7 +18,6 @@ const Rweets = () => {
   const nextCall = () => {
     dispatch(actionGetPostFirebase(get_next));
   };
-  console.log(post_list);
   return (
     <>
       <InfinityScroll

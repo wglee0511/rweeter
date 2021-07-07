@@ -15,6 +15,10 @@ const Navigation = (props) => {
     dispatch(actionLogoutToFirabase());
   };
 
+  const handleUp = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  };
+
   return (
     <>
       <TextDiv>{urlname === "/" ? "홈" : "내정보"}</TextDiv>
@@ -25,7 +29,7 @@ const Navigation = (props) => {
         <EachLink to="/" title="로그아웃" onClick={handleLougout}>
           <ExitToAppIcon fontSize="large" />
         </EachLink>
-        <EachLink to="/" title="위로가기">
+        <EachLink to="/" title="위로가기" onClick={handleUp}>
           <ArrowUpwardIcon fontSize="large" />
         </EachLink>
       </IconDiv>

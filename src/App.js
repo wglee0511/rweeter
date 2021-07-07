@@ -33,8 +33,8 @@ function App(props) {
       ) : (
         <MainDiv>
           <Switch>
-            <Route exact path="/signup" component={Signup} />
             <Route exact path="/" component={Enter} />
+            <Route exact path="/signup" component={Signup} />
             <Route exact path="/login" component={Login} />
             <Redirect from="*" to="/" />
           </Switch>

@@ -143,7 +143,7 @@ export const actionGetPostFirebase =
         start: get_post_list.docs[0],
         next:
           get_post_list.docs.length === size + 1
-            ? get_post_list.docs[get_post_list.docs.length - 1]
+            ? get_post_list.docs[get_post_list.docs.length - 2]
             : null,
       };
       get_post_list.forEach((doc) => {
