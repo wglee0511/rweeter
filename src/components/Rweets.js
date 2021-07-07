@@ -4,43 +4,61 @@ import Image from "../elements/Image";
 import theme from "../shared/theme";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import InfinityScroll from "../shared/InfinityScroll";
+import { actionGetPostFirebase } from "../redux/modules/post";
 const Rweets = () => {
   const post_list = useSelector((state) => state.post.list);
-  const checker = post_list.length !== 0 ? true : false;
+  const is_loading = useSelector((state) => state.post.is_loading);
+  const get_next = useSelector((state) => state.post.paging.next);
+  const dispatch = useDispatch();
+  let next_checker = get_next ? true : false;
+  let list_length_checker = post_list.length !== 0 ? true : false;
 
+  const nextCall = () => {
+    dispatch(actionGetPostFirebase(get_next));
+  };
+  console.log(post_list);
   return (
     <>
-      {checker &&
-        post_list.map((each) => {
-          return (
-            <InputRweet key={each.post_id}>
-              <UserImageDiv>
-                <Image src={each.user_info.user_profile} />
-              </UserImageDiv>
-              <MainDiv>
-                <UserInfoDiv>
-                  <Font>{each.user_info.user_name}</Font>
-                  <CheckCircleIcon style={{ margin: "0 3px 0 3px" }} />
-                  <CreatAt>{each.insert_dt}</CreatAt>
-                </UserInfoDiv>
-                <ContentsDiv>
-                  <Font>{each.contents}</Font>
-                  <Image
-                    shape="rectangle"
-                    min_width="230px"
-                    src={each.image_url}
-                  />
-                  <LikeButton is_like={"false"}>
-                    <FavoriteIcon />
-                    {each.like_cnt} 개
-                  </LikeButton>
-                </ContentsDiv>
-              </MainDiv>
-            </InputRweet>
-          );
-        })}
-      {!checker && <PleaseDiv>르위터에 오신 것을 환영합니다.</PleaseDiv>}
+      <InfinityScroll
+        is_loading={is_loading}
+        is_next={next_checker}
+        nextCall={nextCall}
+      >
+        {list_length_checker &&
+          post_list?.map((each) => {
+            return (
+              <InputRweet key={each.post_id}>
+                <UserImageDiv>
+                  <Image src={each.user_info.user_profile} />
+                </UserImageDiv>
+                <MainDiv>
+                  <UserInfoDiv>
+                    <Font>{each.user_info.user_name}</Font>
+                    <CheckCircleIcon style={{ margin: "0 3px 0 3px" }} />
+                    <CreatAt>{each.insert_dt}</CreatAt>
+                  </UserInfoDiv>
+                  <ContentsDiv>
+                    <Font>{each.contents}</Font>
+                    <Image
+                      shape="rectangle"
+                      min_width="230px"
+                      src={each.image_url}
+                    />
+                    <LikeButton is_like={"false"}>
+                      <FavoriteIcon />
+                      {each.like_cnt} 개
+                    </LikeButton>
+                  </ContentsDiv>
+                </MainDiv>
+              </InputRweet>
+            );
+          })}
+      </InfinityScroll>
+      {!list_length_checker && (
+        <PleaseDiv>르위터에 오신 것을 환영합니다.</PleaseDiv>
+      )}
     </>
   );
 };

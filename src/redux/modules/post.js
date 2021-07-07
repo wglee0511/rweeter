@@ -27,16 +27,23 @@ const initialState = {
     - like_cnt
     - insert_dt
   - } */
-
+// isloading 만들것
+// paging 정보 추가할 것
 const post = createSlice({
   name: "post",
   initialState,
   reducers: {
     actionAddPost: (state, action) => {
       state.list.unshift(action.payload);
+      state.is_loading = false;
     },
     actionGetPost: (state, action) => {
-      state.list = action.payload;
+      state.list.push(...action.payload.post_list);
+      state.paging = action.payload.paging;
+      state.is_loading = false;
+    },
+    actionLoading: (state, action) => {
+      state.is_loading = true;
     },
   },
 });
@@ -117,15 +124,28 @@ export const actionUploadPost =
   };
 
 export const actionGetPostFirebase =
-  () =>
+  (start = null, size = 6) =>
   async (dispatch, getState, { history }) => {
+    dispatch(actionLoading());
     try {
       let post_list = [];
-      const get_post_list = await firebaseStore
-        .collection("post")
-        .orderBy("insert_dt", "desc")
-        .get();
-      console.log(get_post_list);
+      const prepare = firebaseStore.collection("post");
+
+      let query = prepare.orderBy("insert_dt", "desc");
+
+      if (start) {
+        query = query.startAt(start);
+      }
+
+      let get_post_list = await query.limit(size + 1).get();
+
+      let paging = {
+        start: get_post_list.docs[0],
+        next:
+          get_post_list.docs.length === size + 1
+            ? get_post_list.docs[get_post_list.docs.length - 1]
+            : null,
+      };
       get_post_list.forEach((doc) => {
         const doc_info = doc.data();
         const each_post = {
@@ -144,12 +164,12 @@ export const actionGetPostFirebase =
         };
         post_list.push(each_post);
       });
-      dispatch(actionGetPost(post_list));
+      dispatch(actionGetPost({ paging, post_list }));
     } catch (error) {
       window.alert(error.message);
     }
   };
 
-export const { actionAddPost, actionGetPost } = post.actions;
+export const { actionAddPost, actionGetPost, actionLoading } = post.actions;
 
 export default post;
