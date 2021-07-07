@@ -7,10 +7,13 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import { useDispatch, useSelector } from "react-redux";
 import InfinityScroll from "../shared/InfinityScroll";
 import { actionGetPostFirebase } from "../redux/modules/post";
-const Rweets = () => {
+import { useHistory } from "react-router-dom";
+
+const Rweets = (props) => {
   const post_list = useSelector((state) => state.post.list);
   const is_loading = useSelector((state) => state.post.is_loading);
   const get_next = useSelector((state) => state.post.paging.next);
+  let history = useHistory();
   const dispatch = useDispatch();
   let next_checker = get_next ? true : false;
   let list_length_checker = post_list.length !== 0 ? true : false;
@@ -18,6 +21,7 @@ const Rweets = () => {
   const nextCall = () => {
     dispatch(actionGetPostFirebase(get_next));
   };
+  console.log(history);
   return (
     <>
       <InfinityScroll
@@ -38,18 +42,22 @@ const Rweets = () => {
                     <CheckCircleIcon style={{ margin: "0 3px 0 3px" }} />
                     <CreatAt>{each.insert_dt}</CreatAt>
                   </UserInfoDiv>
-                  <ContentsDiv>
+
+                  <ContentsDiv
+                    onClick={() => history.push(`/detail/${each.post_id}`)}
+                  >
                     <Font>{each.contents}</Font>
                     <Image
                       shape="rectangle"
                       min_width="230px"
                       src={each.image_url}
                     />
-                    <LikeButton is_like={"false"}>
-                      <FavoriteIcon />
-                      {each.like_cnt} 개
-                    </LikeButton>
                   </ContentsDiv>
+
+                  <LikeButton is_like={"false"}>
+                    <FavoriteIcon style={{ margin: "0 5px" }} />
+                    {each.like_cnt}
+                  </LikeButton>
                 </MainDiv>
               </InputRweet>
             );
@@ -96,7 +104,7 @@ const Font = styled.h1`
 `;
 const CreatAt = styled.h1`
   color: ${theme.borderColor};
-  font-weight: 600;
+  font-weight: 800;
 `;
 
 const ContentsDiv = styled.div`
@@ -116,6 +124,7 @@ const LikeButton = styled.div`
     props.is_like === "true" ? theme.likeColor : theme.fontColor};
   :hover {
     cursor: pointer;
+    color: ${theme.likeColor};
   }
 `;
 

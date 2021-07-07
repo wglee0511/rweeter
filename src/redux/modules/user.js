@@ -1,5 +1,7 @@
+import { WbIncandescentOutlined } from "@material-ui/icons";
 import { createSlice } from "@reduxjs/toolkit";
 import { firebaseAuth } from "../../shared/firebase";
+import firebase from "firebase/app";
 
 const initialState = {
   user: {
@@ -104,6 +106,20 @@ export const actionLogoutToFirabase =
       await firebaseAuth.signOut();
       dispatch(actionDelUser());
       history.replace("/");
+    } catch (error) {
+      window.alert(error.message);
+    }
+  };
+
+export const actionGoogleLoginFirebase =
+  () =>
+  async (dispatch, getState, { history }) => {
+    try {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      await firebaseAuth.signInWithPopup(provider).then((result) => {
+        console.log(result);
+      });
+      dispatch(actionLoginChecker());
     } catch (error) {
       window.alert(error.message);
     }

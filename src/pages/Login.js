@@ -9,7 +9,10 @@ import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import theme from "../shared/theme";
-import { actionLoginForAuth } from "../redux/modules/user";
+import {
+  actionGoogleLoginFirebase,
+  actionLoginForAuth,
+} from "../redux/modules/user";
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -34,8 +37,11 @@ const Login = (props) => {
       dispatch(actionLoginForAuth(values));
     },
   });
+  const handleGoogleLogin = () => {
+    dispatch(actionGoogleLoginFirebase());
+  };
   return (
-    <LoginForm height="450px">
+    <LoginForm height="600px">
       <TwitterIcon fontSize="large" />
       <Intro>르위터 로그인</Intro>
       <LoginSubmitForm _onSubmit={formik.handleSubmit}>
@@ -62,6 +68,13 @@ const Login = (props) => {
           <HelperMsg>{formik.errors.pwd}</HelperMsg>
         ) : null}
         <Button text="로그인하기" size="20px" type="submit" />
+        <Button
+          text="구글로그인"
+          size="20px"
+          type="button"
+          _onClick={handleGoogleLogin}
+          btnstyle="black"
+        />
       </LoginSubmitForm>
     </LoginForm>
   );

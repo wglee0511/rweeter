@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import "./App.css";
 import Enter from "./pages/Enter";
@@ -10,6 +10,7 @@ import theme from "./shared/theme";
 import { useDispatch, useSelector } from "react-redux";
 import { actionLoginChecker } from "./redux/modules/user";
 import { actionGetPostFirebase } from "./redux/modules/post";
+import RweetDetail from "./pages/RweetDetail";
 
 function App(props) {
   const is_login = useSelector((state) => state.user.is_login);
@@ -27,6 +28,7 @@ function App(props) {
         <MainDiv>
           <Switch>
             <Route exact path="/" component={Main} />
+            <Route exact path="/detail/:id" component={RweetDetail} />
             <Redirect from="*" to="/" />
           </Switch>
         </MainDiv>
@@ -59,4 +61,4 @@ const MainDiv = styled.div`
   border: 1.3px solid ${theme.borderColor};
 `;
 
-export default App;
+export default withRouter(App);

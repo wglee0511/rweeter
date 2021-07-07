@@ -24,13 +24,13 @@ const Navigation = (props) => {
       <TextDiv>{urlname === "/" ? "홈" : "내정보"}</TextDiv>
       <IconDiv>
         <EachLink to="/" title="홈">
-          <HomeIcon fontSize="large" />
+          <HomeIcon fontSize="inherit" />
         </EachLink>
         <EachLink to="/" title="로그아웃" onClick={handleLougout}>
-          <ExitToAppIcon fontSize="large" />
+          <ExitToAppIcon fontSize="inherit" />
         </EachLink>
         <EachLink to="/" title="위로가기" onClick={handleUp}>
-          <ArrowUpwardIcon fontSize="large" />
+          <ArrowUpwardIcon fontSize="inherit" />
         </EachLink>
       </IconDiv>
     </>
@@ -38,7 +38,7 @@ const Navigation = (props) => {
 };
 
 const TextDiv = styled.div`
-  font-size: 25px;
+  font-size: 20px;
   width: 80px;
   display: flex;
   justify-content: space-between;
@@ -47,7 +47,7 @@ const TextDiv = styled.div`
 
 const IconDiv = styled.div`
   box-sizing: border-box;
-  width: 130px;
+  width: 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
