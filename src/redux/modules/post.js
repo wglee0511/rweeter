@@ -53,6 +53,16 @@ const post = createSlice({
     aciontDelDetail: (state, action) => {
       state.detail_rweet = {};
     },
+    actionLikeUpdate: (state, action) => {
+      let index = state.list.findIndex(
+        (each) => each.post_id === action.payload.post_id
+      );
+      state.list[index] = {
+        ...state.list[index],
+        like_cnt:
+          parseInt(state.list[index].like_cnt) + parseInt(action.payload.value),
+      };
+    },
   },
 });
 
@@ -216,6 +226,7 @@ export const {
   actionLoading,
   actionGetDetail,
   aciontDelDetail,
+  actionLikeUpdate,
 } = post.actions;
 
 export default post;

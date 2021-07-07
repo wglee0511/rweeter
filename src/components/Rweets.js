@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Image from "../elements/Image";
 import theme from "../shared/theme";
@@ -10,9 +10,11 @@ import {
   actionGetOnePostFirebase,
   actionGetPostFirebase,
 } from "../redux/modules/post";
+import { actionGetLike, actionLikeUpadate } from "../redux/modules/like";
 
 const Rweets = (props) => {
   const post_list = useSelector((state) => state.post.list);
+  const like_list = useSelector((state) => state.like.list);
   const is_loading = useSelector((state) => state.post.is_loading);
   const get_next = useSelector((state) => state.post.paging.next);
   const dispatch = useDispatch();
@@ -22,6 +24,11 @@ const Rweets = (props) => {
   const nextCall = () => {
     dispatch(actionGetPostFirebase(get_next));
   };
+
+  useEffect(() => {
+    dispatch(actionGetLike());
+  }, []);
+
   return (
     <>
       <InfinityScroll
@@ -56,7 +63,18 @@ const Rweets = (props) => {
                     />
                   </ContentsDiv>
 
-                  <LikeButton is_like={"false"}>
+                  <LikeButton
+                    is_like={
+                      like_list.findIndex((like_each) => {
+                        return like_each.post_id === each.post_id;
+                      }) === -1
+                        ? "false"
+                        : "true"
+                    }
+                    onClick={() => {
+                      dispatch(actionLikeUpadate(each.post_id));
+                    }}
+                  >
                     <FavoriteIcon style={{ margin: "0 5px" }} />
                     {each.like_cnt}
                   </LikeButton>

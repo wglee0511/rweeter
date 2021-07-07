@@ -93,4 +93,4 @@
 
 - like
   - state :
-    -
+    - list : [...post_id]

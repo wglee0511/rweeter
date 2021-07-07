@@ -4,13 +4,13 @@ import Image from "../elements/Image";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import theme from "../shared/theme";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Rweet = () => {
   const is_loading = useSelector((state) => state.post.is_loading);
   const post = useSelector((state) => state.post.detail_rweet);
+  const dispatch = useDispatch();
 
-  console.log(post);
   return (
     <>
       {!is_loading && (

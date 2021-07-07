@@ -5,6 +5,7 @@ import thunk from "redux-thunk";
 import { connectRouter } from "connected-react-router";
 import post from "./modules/post";
 import image from "./modules/image";
+import like from "./modules/like";
 
 export const history = createBrowserHistory();
 
@@ -25,6 +26,7 @@ const reducer = combineReducers({
   user: user.reducer,
   post: post.reducer,
   image: image.reducer,
+  like: like.reducer,
   router: connectRouter(history),
 });
 
