@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import moment from "moment";
 import { firebaseStorage, firebaseStore } from "../../shared/firebase";
 
-const initialState = {
+let initialState = {
   list: [],
   paging: { start: null, next: null, size: 3 },
   is_loading: false,

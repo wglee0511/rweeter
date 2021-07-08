@@ -43,7 +43,7 @@ const Signup = (props) => {
   });
 
   return (
-    <LoginForm height="700px">
+    <LoginForm height="500px">
       <TwitterIcon fontSize="large" />
       <Intro>계정을 생성하세요</Intro>
       <LoginSubmitForm _onSubmit={formik.handleSubmit}>
@@ -54,6 +54,9 @@ const Signup = (props) => {
           type="userId"
           onChange={formik.handleChange}
           value={formik.values.userId}
+          width="250px"
+          height="30px"
+          size="15px"
         />
         {formik.touched.userId && formik.errors.userId ? (
           <HelperMsg>{formik.errors.userId}</HelperMsg>
@@ -65,6 +68,9 @@ const Signup = (props) => {
           type="userName"
           onChange={formik.handleChange}
           value={formik.values.userName}
+          width="250px"
+          height="30px"
+          size="15px"
         />
         {formik.touched.userName && formik.errors.userName ? (
           <HelperMsg>{formik.errors.userName}</HelperMsg>
@@ -76,6 +82,9 @@ const Signup = (props) => {
           type="password"
           onChange={formik.handleChange}
           value={formik.values.pwd}
+          width="250px"
+          height="30px"
+          size="15px"
         />
         {formik.touched.pwd && formik.errors.pwd ? (
           <HelperMsg>{formik.errors.pwd}</HelperMsg>
@@ -87,11 +96,16 @@ const Signup = (props) => {
           type="password"
           onChange={formik.handleChange}
           value={formik.values.pwdCheck}
+          width="250px"
+          height="30px"
+          size="15px"
         />
         {formik.touched.pwdCheck && formik.errors.pwdCheck ? (
           <HelperMsg>{formik.errors.pwdCheck}</HelperMsg>
         ) : null}
-        <Button text="가입하기" size="20px" type="submit" />
+        <Button  text="가입하기"  width="300px"
+            height="50px"
+            size="15px" type="submit" />
       </LoginSubmitForm>
     </LoginForm>
   );

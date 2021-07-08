@@ -41,7 +41,7 @@ const Login = (props) => {
     dispatch(actionGoogleLoginFirebase());
   };
   return (
-    <LoginForm height="600px">
+    <LoginForm height="500px">
       <TwitterIcon fontSize="large" />
       <Intro>르위터 로그인</Intro>
       <LoginSubmitForm _onSubmit={formik.handleSubmit}>
@@ -52,6 +52,9 @@ const Login = (props) => {
           type="userId"
           onChange={formik.handleChange}
           value={formik.values.userId}
+          width="250px"
+          height="30px"
+          size="15px"
         />
         {formik.touched.userId && formik.errors.userId ? (
           <HelperMsg>{formik.errors.userId}</HelperMsg>
@@ -63,14 +66,21 @@ const Login = (props) => {
           type="password"
           onChange={formik.handleChange}
           value={formik.values.pwd}
+          width="250px"
+          height="30px"
+          size="15px"
         />
         {formik.touched.pwd && formik.errors.pwd ? (
           <HelperMsg>{formik.errors.pwd}</HelperMsg>
         ) : null}
-        <Button text="로그인하기" size="20px" type="submit" />
+        <Button text="로그인하기" width="300px"
+            height="50px"
+            size="15px" type="submit" />
         <Button
           text="구글로그인"
-          size="20px"
+          width="300px"
+            height="50px"
+            size="15px"
           type="button"
           _onClick={handleGoogleLogin}
           btnstyle="black"

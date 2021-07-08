@@ -17,7 +17,7 @@ const Enter = (props) => {
 
   return (
     <>
-      <LoginForm>
+      <LoginForm height="190px" >
         <TwitterIcon fontSize="large" />
         <Intro>지금 일어나고 있는 일</Intro>
         <Sub>오늘 르위터에 가입하세요.</Sub>
@@ -25,17 +25,25 @@ const Enter = (props) => {
           <Button
             _onClick={handleClickSign}
             btnstyle="blue"
+            width="300px"
+            height="30px"
+            size="15px"
             text={"가입하기"}
           />
           <Button
             _onClick={handleClicklogin}
             btnstyle="black"
+            width="300px"
+            height="30px"
+            size="15px"
             text={"로그인"}
+
           />
         </BtnDiv>
       </LoginForm>
       <PicDiv>
         <Image
+          min_width="300px"
           shape="rectangle"
           src="https://cdn.pixabay.com/photo/2021/05/10/14/48/rain-6243559_960_720.jpg"
         />
@@ -64,14 +72,14 @@ const Enter = (props) => {
 
 const Intro = styled.h1`
   font-weight: 800;
-  font-size: 40px;
+  font-size: 25px;
   text-align: start;
-  margin: 60px 0 60px;
+  margin: 15px 0 15px;
 `;
 
 const Sub = styled.h2`
   font-weight: 800;
-  font-size: 25px;
+  font-size: 15px;
   text-align: start;
   margin: 10px 0 10px 0;
 `;
