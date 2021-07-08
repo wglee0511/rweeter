@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { firebaseStore } from "../../shared/firebase";
 import firebase from "firebase/app";
-import { actionGetPostFirebase, actionLikeUpdate } from "./post";
-import { decomposeColor } from "@material-ui/core";
+import { actionLikeUpdate } from "./post";
 
 const initialState = {
   list: [],

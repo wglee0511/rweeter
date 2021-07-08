@@ -9,7 +9,12 @@ import { useDispatch, useSelector } from "react-redux";
 const Rweet = () => {
   const is_loading = useSelector((state) => state.post.is_loading);
   const post = useSelector((state) => state.post.detail_rweet);
-  const dispatch = useDispatch();
+  const like_list = useSelector((state) => state.like.list);
+  const post_id = post.post_id;
+  const like_checker =
+    like_list.find((each) => each.post_id === post_id) === undefined
+      ? "false"
+      : "true";
 
   return (
     <>
@@ -37,9 +42,9 @@ const Rweet = () => {
 
           <Enddiv>
             <CreatAt>{post.insert_dt}</CreatAt>
-            <LikeButton is_like={"false"}>
+            <LikeButton is_like={like_checker}>
               <FavoriteIcon style={{ margin: "0 5px" }} />
-              {post.comments_cnt}
+              {post.like_cnt}
             </LikeButton>
           </Enddiv>
         </>
