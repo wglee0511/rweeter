@@ -21,11 +21,16 @@ const user = createSlice({
     actionSetUser: (state, action) => {
       state.user = action.payload;
       state.is_login = true;
+      state.is_loading =false;
     },
     actionDelUser: (state, acion) => {
       state.user = null;
       state.is_login = false;
+      state.is_loading =false;
     },
+    actionIsLoading :(state, action) =>{
+      state.is_loading = true
+    }
   },
 });
 
@@ -59,6 +64,7 @@ export const actionLoginChecker =
   () =>
   async (dispatch, getState, { history }) => {
     try {
+      dispatch(actionIsLoading())
       await firebaseAuth.onAuthStateChanged((user) => {
         if (user) {
           const userForRedux = {
@@ -69,7 +75,7 @@ export const actionLoginChecker =
           };
           dispatch(actionSetUser(userForRedux));
         } else {
-          dispatch(actionDelUser);
+          dispatch(actionDelUser());
         }
       });
     } catch (error) {
@@ -125,6 +131,6 @@ export const actionGoogleLoginFirebase =
     }
   };
 
-export const { actionSetUser, actionDelUser } = user.actions;
+export const { actionSetUser, actionDelUser,actionIsLoading } = user.actions;
 
 export default user;

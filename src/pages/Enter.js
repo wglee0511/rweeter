@@ -17,7 +17,7 @@ const Enter = (props) => {
 
   return (
     <>
-      <LoginForm height="190px" >
+      <LoginForm height="250px" >
         <TwitterIcon fontSize="large" />
         <Intro>지금 일어나고 있는 일</Intro>
         <Sub>오늘 르위터에 가입하세요.</Sub>
@@ -26,7 +26,7 @@ const Enter = (props) => {
             _onClick={handleClickSign}
             btnstyle="blue"
             width="300px"
-            height="30px"
+            height="50px"
             size="15px"
             text={"가입하기"}
           />
@@ -34,7 +34,7 @@ const Enter = (props) => {
             _onClick={handleClicklogin}
             btnstyle="black"
             width="300px"
-            height="30px"
+            height="50px"
             size="15px"
             text={"로그인"}
 

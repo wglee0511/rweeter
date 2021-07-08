@@ -11,6 +11,7 @@ import {
   actionGetPostFirebase,
 } from "../redux/modules/post";
 import { actionGetLike, actionLikeUpadate } from "../redux/modules/like";
+import Loader from "../shared/Loader";
 
 const Rweets = (props) => {
   const post_list = useSelector((state) => state.post.list);
@@ -85,6 +86,7 @@ const Rweets = (props) => {
               </InputRweet>
             );
           })}
+      {is_loading && <Loader />}
       </InfinityScroll>
       {!list_length_checker && (
         <PleaseDiv>르위터에 오신 것을 환영합니다.</PleaseDiv>

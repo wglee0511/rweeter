@@ -5,6 +5,7 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import theme from "../shared/theme";
 import { useDispatch, useSelector } from "react-redux";
+import Loader from "../shared/Loader";
 
 const Rweet = () => {
   const is_loading = useSelector((state) => state.post.is_loading);
@@ -15,9 +16,12 @@ const Rweet = () => {
     like_list.find((each) => each.post_id === post_id) === undefined
       ? "false"
       : "true";
+  
+
 
   return (
     <>
+      {is_loading && <Loader />}
       {!is_loading && (
         <>
           <UserDiv>
