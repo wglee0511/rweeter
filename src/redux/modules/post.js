@@ -161,7 +161,7 @@ export const actionGetPostFirebase =
         start: get_post_list.docs[0],
         next:
           get_post_list.docs.length === size + 1
-            ? get_post_list.docs[get_post_list.docs.length - 2]
+            ? get_post_list.docs[get_post_list.docs.length - 1]
             : null,
       };
       get_post_list.forEach((doc) => {
@@ -182,6 +182,10 @@ export const actionGetPostFirebase =
         };
         post_list.push(each_post);
       });
+      // 마지막 배열 제거 (길이가 길떄)
+      if (post_list.length > size) {
+        post_list.pop();
+      }
       dispatch(actionGetPost({ paging, post_list }));
     } catch (error) {
       window.alert(error.message);

@@ -63,21 +63,24 @@ const Rweets = (props) => {
                     />
                   </ContentsDiv>
 
-                  <LikeButton
-                    is_like={
-                      like_list.findIndex((like_each) => {
-                        return like_each.post_id === each.post_id;
-                      }) === -1
-                        ? "false"
-                        : "true"
-                    }
-                    onClick={() => {
-                      dispatch(actionLikeUpadate(each.post_id));
-                    }}
-                  >
-                    <FavoriteIcon style={{ margin: "0 5px" }} />
-                    {each.like_cnt}
-                  </LikeButton>
+                  <Enddiv>
+                    <LikeButton
+                      title="좋아요"
+                      is_like={
+                        like_list.findIndex((like_each) => {
+                          return like_each.post_id === each.post_id;
+                        }) === -1
+                          ? "false"
+                          : "true"
+                      }
+                      onClick={() => {
+                        dispatch(actionLikeUpadate(each.post_id));
+                      }}
+                    >
+                      <FavoriteIcon style={{ margin: "0 5px" }} />
+                      {each.like_cnt}
+                    </LikeButton>
+                  </Enddiv>
                 </MainDiv>
               </InputRweet>
             );
@@ -156,6 +159,11 @@ const PleaseDiv = styled.div`
   justify-content: center;
   align-items: center;
   color: ${theme.fontColor};
+`;
+const Enddiv = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
 `;
 
 export default Rweets;

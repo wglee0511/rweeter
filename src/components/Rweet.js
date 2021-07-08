@@ -42,7 +42,7 @@ const Rweet = () => {
 
           <Enddiv>
             <CreatAt>{post.insert_dt}</CreatAt>
-            <LikeButton is_like={like_checker}>
+            <LikeButton is_like={like_checker} title="좋아요">
               <FavoriteIcon style={{ margin: "0 5px" }} />
               {post.like_cnt}
             </LikeButton>
