@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionLoginChecker } from "./redux/modules/user";
 import { actionGetPostFirebase } from "./redux/modules/post";
 import RweetDetail from "./pages/RweetDetail";
+import MetaScript from "./shared/MetaScript";
 
 function App(props) {
   const is_login = useSelector((state) => state.user.is_login);
@@ -24,6 +25,7 @@ function App(props) {
 
   return (
     <Wrapper className="App">
+      <MetaScript />
       {is_login ? (
         <MainDiv>
           <Switch>
